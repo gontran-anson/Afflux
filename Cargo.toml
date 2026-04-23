@@ -1,0 +1,11 @@
+[workspace]
+
+resolver = "2"
+
+members = [
+	"audio-capture",
+	"audio-processing",
+	"stream-dispatch",
+	"tauri-app",
+	"shared-types",
+]
