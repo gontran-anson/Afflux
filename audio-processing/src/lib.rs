@@ -1,14 +1,44 @@
-pub fn add(left: u64, right: u64) -> u64 {
-    left + right
+use shared_types::{AudioLevel, ProcessingConfig};
+use std::sync::Arc;
+use std::sync::atomic::{AtomicBool, Ordering};
+
+pub struct AudioProcessor {
+	config: Arc<ProcessingConfig>,
+	is_renning: Arc<AtomicBool>,
 }
 
-#[cfg(test)]
-mod tests {
-    use super::*;
+impl AudioProcessor {
+	pub fn new(config: Arc<ProcessingConfig>) -> Self {
+		Self {
+			config,
+			is_running: Arc::new(AtomicBool::new(true)),
+		}
+	}
 
-    #[test]
-    fn it_works() {
-        let result = add(2, 2);
-        assert_eq!(result, 4);
-    }
+	pub fn process_buffer(&self, buffer: &mut [f32]) -> AudioLevel {
+		let mut max_peak = 0.0
+		let mut sum_sq = 0.0
+
+		for sample in buffer.iter_mut() {
+
+			// Application du gain
+			*sample *= self.config.master_gain;
+
+			// Puis les effets (eq & compresseurs)
+			// *sample = self.apply_effects(*sample)
+
+			// Prepare vumetre
+			let abs_sample = sample.abs();
+			if abs_sample > max_peak { max_peak = abs_sample; }
+			sum_sq += sample.pow(2);
+		}
+
+		let rms = (sum_sq /  buffer.len() as f32).sqrt();
+
+		AudioLevel {
+			left_peak: max_peak,
+			right_peak: max_peak,
+			rms,
+		}
+	} 
 }
