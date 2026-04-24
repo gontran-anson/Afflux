@@ -1,33 +1,27 @@
-# --- Général ---
 .DS_Store
 Thumbs.db
 *.log
 .env
 .env.*
 
-# --- Rust (Cargo) ---
-# Ignore les dossiers de compilation de toutes les crates du workspace
+
 **/target/
-# Si tu utilises des outils de mesure de performance
+
 **/perf.data
 **/perf.data.old
 
-# --- Node.js / Vue3 / Vite ---
-# Ignore les dépendances et les builds de l'interface
+
 **/node_modules/
 **/dist/
 **/dist-ssr/
 *.local
 
-# --- Tauri ---
-# Fichiers spécifiques au packaging Tauri
+
 src-tauri/target/
 src-tauri/gen/
 src-tauri/binaries/
 
-# --- IDEs ---
-# On garde .vscode/settings.json car il est utile au projet, 
-# mais on ignore les données temporaires
+
 .vscode/*
 !.vscode/settings.json
 !.vscode/extensions.json
@@ -35,6 +29,5 @@ src-tauri/binaries/
 *.sublime-project
 *.sublime-workspace
 
-# --- Tests & Debug ---
 **/screenshots/
 **/failures/
