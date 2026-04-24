@@ -1,10 +1,10 @@
 use shared_types::{AudioLevel, ProcessingConfig};
 use std::sync::Arc;
-use std::sync::atomic::{AtomicBool, Ordering};
+use std::sync::atomic::{AtomicBool};
 
 pub struct AudioProcessor {
 	config: Arc<ProcessingConfig>,
-	is_renning: Arc<AtomicBool>,
+	is_running: Arc<AtomicBool>,
 }
 
 impl AudioProcessor {
@@ -16,8 +16,8 @@ impl AudioProcessor {
 	}
 
 	pub fn process_buffer(&self, buffer: &mut [f32]) -> AudioLevel {
-		let mut max_peak = 0.0
-		let mut sum_sq = 0.0
+		let mut max_peak = 0.0;
+		let mut sum_sq = 0.0;
 
 		for sample in buffer.iter_mut() {
 
@@ -30,7 +30,7 @@ impl AudioProcessor {
 			// Prepare vumetre
 			let abs_sample = sample.abs();
 			if abs_sample > max_peak { max_peak = abs_sample; }
-			sum_sq += sample.pow(2);
+			sum_sq += sample.powi(2);
 		}
 
 		let rms = (sum_sq /  buffer.len() as f32).sqrt();

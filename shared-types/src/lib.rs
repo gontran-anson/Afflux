@@ -2,13 +2,13 @@ use serde::{Serialize, Deserialize};
 use ts_rs::TS;
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
-pub struct AudioFram {
-	pub samples: Vect<f32>,
+pub struct AudioFrame {
+	pub samples: Vec<f32>,
 	pub channels: u16,
-	pub sample_rate u32, 
+	pub sample_rate: u32, 
 }
 
-#[derive(Debug, Clone, Serialize, Deserialize)]
+#[derive(TS, Serialize, Deserialize)]
 #[ts(export)]
 pub struct AudioLevel {
 	pub left_peak: f32,
@@ -26,7 +26,6 @@ pub struct ProcessingConfig {
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
-#[ts(export)]
 pub  struct EQConfig {
 	pub low_gain: f32,
 	pub mid_gain: f32,
@@ -35,7 +34,6 @@ pub  struct EQConfig {
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
-#[ts(export)]
 pub struct ConpressorConfig {
 	pub treshold: f32,
 	pub ratio: f32,

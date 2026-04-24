@@ -6,6 +6,6 @@ members = [
 	"audio-capture",
 	"audio-processing",
 	"stream-dispatch",
-	"desktop-bridge",
+	"desktop-bridge/src-tauri",
 	"shared-types",
 ]
