@@ -1,5 +1,5 @@
-use serde::{Serialize, Deserialize}
-use ts_rs::TS
+use serde::{Serialize, Deserialize};
+use ts_rs::TS;
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct AudioFram {
