@@ -1,14 +1,45 @@
-pub fn add(left: u64, right: u64) -> u64 {
-    left + right
+use serde::{Serialize, Deserialize}
+use ts_rs::TS
+
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct AudioFram {
+	pub samples: Vect<f32>,
+	pub channels: u16,
+	pub sample_rate u32, 
 }
 
-#[cfg(test)]
-mod tests {
-    use super::*;
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[ts(export)]
+pub struct AudioLevel {
+	pub left_peak: f32,
+	pub right_peak: f32,
+	pub rms: f32,
+}
 
-    #[test]
-    fn it_works() {
-        let result = add(2, 2);
-        assert_eq!(result, 4);
-    }
+
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct ProcessingConfig {
+	pub equalizer: EQConfig,
+	pub compressor: ConpressorConfig,
+	pub limiter_treshold: f32,
+	pub master_gain: f32
+}
+
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[ts(export)]
+pub  struct EQConfig {
+	pub low_gain: f32,
+	pub mid_gain: f32,
+	pub hight_gain: f32,
+	pub enable: bool,
+}
+
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[ts(export)]
+pub struct ConpressorConfig {
+	pub treshold: f32,
+	pub ratio: f32,
+	pub attack_ms: f32,
+	pub release_ms: f32,
+	pub enable: bool,
 }
