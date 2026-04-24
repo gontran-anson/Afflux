@@ -3833,11 +3833,9 @@ name = "tauri-app"
 version = "0.1.0"
 dependencies = [
  "audio-capture",
- "audio-processing",
  "serde",
  "serde_json",
  "shared-types",
- "stream-dispatch",
  "tauri",
  "tauri-build",
  "tauri-plugin-opener",
