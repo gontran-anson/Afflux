@@ -10,6 +10,12 @@ pub struct AudioFrame {
 
 #[derive(TS, Serialize, Deserialize)]
 #[ts(export)]
+pub struct AudioDevice {
+	pub name: String
+}
+
+#[derive(TS, Serialize, Deserialize)]
+#[ts(export)]
 pub struct AudioLevel {
 	pub left_peak: f32,
 	pub right_peak: f32,
