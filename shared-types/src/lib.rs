@@ -23,7 +23,8 @@ pub struct AudioLevel {
 }
 
 
-#[derive(Debug, Clone, Serialize, Deserialize)]
+#[derive(TS, Debug, Clone, Serialize, Deserialize)]
+#[ts(export)]
 pub struct ProcessingConfig {
 	pub equalizer: EQConfig,
 	pub compressor: ConpressorConfig,
@@ -31,7 +32,8 @@ pub struct ProcessingConfig {
 	pub master_gain: f32
 }
 
-#[derive(Debug, Clone, Serialize, Deserialize)]
+#[derive(TS, Debug, Clone, Serialize, Deserialize)]
+#[ts(export)]
 pub  struct EQConfig {
 	pub low_gain: f32,
 	pub mid_gain: f32,
@@ -39,7 +41,8 @@ pub  struct EQConfig {
 	pub enable: bool,
 }
 
-#[derive(Debug, Clone, Serialize, Deserialize)]
+#[derive(TS, Debug, Clone, Serialize, Deserialize)]
+#[ts(export)]
 pub struct ConpressorConfig {
 	pub treshold: f32,
 	pub ratio: f32,
