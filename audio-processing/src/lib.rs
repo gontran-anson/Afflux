@@ -7,6 +7,11 @@ pub struct AudioProcessor {
 	is_running: Arc<AtomicBool>,
 }
 
+pub struct VumeterState {
+	pub current_level: f32,
+	pub decay_factor: f32,
+}
+
 impl AudioProcessor {
 	pub fn new(config: Arc<ProcessingConfig>) -> Self {
 		Self {
@@ -41,4 +46,16 @@ impl AudioProcessor {
 			rms,
 		}
 	} 
+}
+
+impl VumeterState {
+	pub fn update(&mut self, new_sample_peak: f32) -> f32 {
+		if new_sample_peak > self.current_level {
+			self.current_level = new_sample_peak
+		} else {
+
+			self.current_level *= self.decay_factor
+		}
+		self.current_level
+	}
 }
