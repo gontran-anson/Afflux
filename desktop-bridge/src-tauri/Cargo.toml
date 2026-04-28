@@ -21,6 +21,8 @@ tauri-build = { version = "2", features = [] }
 shared-types = { path = "../../shared-types" }
 audio-capture = { path = "../../audio-capture" }
 
+cpal = "0.17"
+
 tauri = { version = "2", features = [] }
 tauri-plugin-opener = "2"
 serde = { version = "1", features = ["derive"] }

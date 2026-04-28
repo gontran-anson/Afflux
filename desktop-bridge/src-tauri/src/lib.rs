@@ -1,4 +1,7 @@
 mod commands;
+mod emitters;
+mod state;
+
 
 // Learn more about Tauri commands at https://tauri.app/develop/calling-rust/
 #[tauri::command]
@@ -9,10 +12,13 @@ fn greet(name: &str) -> String {
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
 pub fn run() {
     tauri::Builder::default()
+        .manage(state::AudioState::default())
         .plugin(tauri_plugin_opener::init())
         .invoke_handler(tauri::generate_handler![
             greet,
-            commands::devices::get_input_devices
+            commands::devices::get_input_devices,
+            commands::stream::start_stream,
+            commands::stream::stop_stream,
         ])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
