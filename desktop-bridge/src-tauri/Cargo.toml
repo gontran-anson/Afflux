@@ -20,6 +20,7 @@ tauri-build = { version = "2", features = [] }
 [dependencies]
 shared-types = { path = "../../shared-types" }
 audio-capture = { path = "../../audio-capture" }
+audio-processing = { path = "../../audio-processing"}
 
 cpal = "0.17"
 
