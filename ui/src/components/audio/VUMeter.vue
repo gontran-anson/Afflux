@@ -11,6 +11,7 @@ const levelLeft = ref(0); // Valeur de 0 à 1
 onMounted(async () => {
 	// On écoute les mises à jour venant de Rust
 	const unlisten = await listen<AudioLevel>('vumeter-update', (event) => {
+		console.log("Données reçues :", event.payload);
 		// On récupère le RMS ou le Peak
 		levelLeft.value = event.payload.rms;
 	});
