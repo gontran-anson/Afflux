@@ -8,6 +8,18 @@ import type { AudioDevice } from '../../shared-types/bindings/AudioDevice'
 
 const devices = ref<AudioDevice[]>([]) 
 
+const isStreaming = ref(false)
+
+async function toggleStream(deviceName: string) {
+  if (isStreaming.value) {
+    invoke('stop_stream')
+    isStreaming.value = false
+  } else {
+    invoke('start_stream', { deviceName })
+    isStreaming.value = true
+  }
+}
+
 const loadDevices = async () => {
   try {
     devices.value = await invoke<AudioDevice[]>('get_input_devices')

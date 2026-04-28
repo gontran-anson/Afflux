@@ -3,7 +3,10 @@ import { fileURLToPath, URL } from 'node:url'
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import vueDevTools from 'vite-plugin-vue-devtools'
-// import { resolve } from 'node:path'
+import { resolve, dirname } from 'node:path'
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
 // https://vite.dev/config/
 export default defineConfig({
@@ -14,7 +17,7 @@ export default defineConfig({
   resolve: {
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url)),
-      // '#shared': resolve(__dirname, '../shared-types/bindings')
+      '@shared': resolve(__dirname, '../shared-types/bindings')
     },
   },
 })
