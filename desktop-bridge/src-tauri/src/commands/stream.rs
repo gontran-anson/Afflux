@@ -7,6 +7,7 @@ use crate::emitters::audio::emit_vumeter_levels;
 
 #[tauri::command]
 pub async fn start_stream(device_name: String, state: State<'_, AudioState>, app_handler: AppHandle) -> Result<(), String> {
+    
     let handle = app_handler.clone();
 
     let on_data = move |samples: &[f32]| {
@@ -23,12 +24,13 @@ pub async fn start_stream(device_name: String, state: State<'_, AudioState>, app
     };
 
     let stream = audio_capture::start_input_stream(&device_name, on_data)
-        .map_err(|e| e.to_string())?;
+        .map_err(|e| {
+            println!(">>> ERREUR CAPTURE : {}", e);
+            e.to_string()
+        })?;
 
     let mut current_stream = state.current_stream.lock().unwrap();
     *current_stream = Some(stream);
-
-    println!("Flux démarré sur : {}", device_name);
 
     Ok(())
 }
@@ -36,11 +38,13 @@ pub async fn start_stream(device_name: String, state: State<'_, AudioState>, app
 
 #[tauri::command]
 pub async fn stop_stream(state: State<'_, AudioState>) -> Result<(), String> {
+    println!("Stop Stream !");
+
     let mut current_stream = state.current_stream.lock().unwrap();
 
     *current_stream = None;
 
     print!("Flux audio arrêté proprement");
-    
+
     Ok(())
 }
