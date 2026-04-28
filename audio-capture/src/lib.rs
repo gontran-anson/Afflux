@@ -1,5 +1,5 @@
 use anyhow::{Context, Result};
-use cpal::traits::{DeviceTrait, HostTrait};
+use cpal::traits::{DeviceTrait, HostTrait, StreamTrait};
 use shared_types::AudioDevice;
 
 pub fn get_input_devices() -> Result<Vec<AudioDevice>> {
@@ -43,6 +43,8 @@ where
         |err| eprintln!("Stream error: {}", err),
         None,
     )?;
+
+    stream.play().context("Impossible de lancer la lecture du flux")?;
 
     Ok(stream)
 }
